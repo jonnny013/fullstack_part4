@@ -24,8 +24,36 @@ const favoriteBlog = (blogs) => {
     return result
 }
 
+const mostBlogs = (blogs) => {
+    const authors = blogs.map(a => a.author)
+    if (authors.length === 0) {
+        return undefined
+    }
+    let blogNumber = {}
+    for (let i = 0; i < authors.length; i++) {
+        if (authors[i] in blogNumber) {
+                blogNumber[authors[i]]++
+            }
+        else {
+                blogNumber[authors[i]] = 1
+            }   
+    }
+    let maxKey = null
+    let max = 0
+    for (const key in blogNumber) {
+        const value = blogNumber[key]
+        if (value > max) {
+            max = value
+            maxKey = key
+        }
+    }
+    return {author: maxKey, blogs: max}
+}
+
+
 module.exports = {
     dummy,
     totalLikes, 
-    favoriteBlog
+    favoriteBlog,
+    mostBlogs
 }
