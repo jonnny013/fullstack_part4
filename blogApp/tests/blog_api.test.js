@@ -23,6 +23,42 @@ test('check for unique id', async () => {
     expect(resultBlog.body[0]._id).toBeDefined()
 })
 
+test('post is successful', async () => {
+  const newBlog = {
+    title: 'POST',
+    author: "JEST",
+    url: "NULL",
+    likes: 0
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const blogsInDB = await helper.blogsInDb()
+  expect(blogsInDB).toHaveLength(helper.initialBlogs.length + 1)
+})
+
+test('check like default', async () => {
+  const newBlog = {
+    title: 'POST',
+    author: "JEST",
+    url: "undefined",
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const blogsInDB = await helper.blogsInDb()
+  const newPostIndex = blogsInDB.length - 1
+  expect(blogsInDB[newPostIndex].likes).toBe(0)
+})
+
 afterAll(async () => {
   await mongoose.connection.close()
 })
