@@ -59,6 +59,30 @@ test('check like default', async () => {
   expect(blogsInDB[newPostIndex].likes).toBe(0)
 })
 
+test('check url property is missing will give error', async () => {
+  const newBlog = {
+    title: 'POST',
+    author: "JEST",
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+})
+
+test('check title property is missing will give error', async () => {
+  const newBlog = {
+    author: "JEST",
+    url: "someUrl"
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+})
+
 afterAll(async () => {
   await mongoose.connection.close()
 })
