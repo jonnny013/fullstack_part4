@@ -18,12 +18,8 @@ test('check for json format', async () => {
 }, 10000)
 
 test('check for unique id', async () => {
-    const blogs = await helper.blogsInDb()
-    const checkBlog = blogs[0]
     const resultBlog = await api
         .get(`/api/blogs`)
-        .expect(200)
-        .expect('Content-Type', /application\/json/)
     expect(resultBlog.body[0]._id).toBeDefined()
 })
 
