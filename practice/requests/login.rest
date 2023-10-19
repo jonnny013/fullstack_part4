@@ -1,0 +1,28 @@
+post http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "Jon",
+    "name": "Jon",
+    "password": "123"
+}
+
+###
+
+post http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "username": "Jon",
+    "password": "123"
+}
+
+###
+post http://localhost:3001/api/notes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvbiIsImlkIjoiNjUzMGE2YmM2NzA0YmVmZmQxNjIzMWM1IiwiaWF0IjoxNjk3Njg4OTI3fQ.PSq_60qZvVXxV1pgQdd2OMC7sZZDQ_POOfF9HKr42wk
+
+{
+    "content": "hi im jon and logged in",
+    "important": true
+}
