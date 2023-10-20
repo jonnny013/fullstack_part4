@@ -5,7 +5,8 @@ content-type: application/json
     "title": "bloggy blog",
     "author": "Jon",
     "url": "empty",
-    "likes": 5
+    "likes": 5,
+    "userId": "6531d85a20cadf5ee0e2ee8b"
 }
 
 ###
@@ -18,5 +19,15 @@ Content-Type: application/json
 {
     "username": "Jon",
     "name": "jon",
+    "password": "123"
+}
+
+###
+
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+    "username": "Jon",
     "password": "123"
 }
