@@ -3,29 +3,27 @@ const User = require('../models/user')
 
 const initialBlogs = [
     {
-        title: "Learning Backend",
-        author: "Jon Love",
-        url: "https://jonnny013.github.io/index.html",
+        title: 'Learning Backend',
+        url: 'https://jonnny013.github.io/index.html',
         likes: 100
     },
     {
-        title: "Forgetting Frontend Already",
-        author: "My Brain",
-        url: "https://github.com/jonnny013",
+        title: 'Forgetting Frontend Already',
+        url: 'https://github.com/jonnny013',
         likes: 10
     }
 ]
 
 const initialUsers = [
     {
-        username: "Test Guy One",
-        name: "Bob",
-        password: "123"
+        username: 'TestOne',
+        name: 'Jon Love',
+        password: '123'
     },
     {
-        username: "Test Guy Two",
-        name: "Bob",
-        password: "123"
+        username: 'TestTwo',
+        name: 'Bob',
+        password: '123'
     }
 ]
 
@@ -35,7 +33,7 @@ const usersInDb = async () => {
 }
 
 const nonExistingId = async () => {
-    const blog = new Blog({title: "soon to go"})
+    const blog = new Blog({ title: 'soon to go' })
     await blog.save()
     await blog.deleteOne()
 
