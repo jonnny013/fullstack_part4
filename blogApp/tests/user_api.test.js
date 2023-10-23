@@ -3,7 +3,6 @@ const supertest = require('supertest')
 const helper = require('./test_helper')
 const app = require('../app')
 const api = supertest(app)
-const Blog = require('../models/blog')
 const User = require('../models/user')
 const bcrypt = require('bcrypt')
 
@@ -23,7 +22,19 @@ describe('Three users initially in DB', () => {
             .expect('Content-Type', /application\/json/)
 
         expect(users.body).toHaveLength(3)
+    })
 
+    test('log in test', async () => {
+        const userOne = {
+            username: 'TestOne',
+            password: '123'
+        }
+        const response = await api
+            .post('/api/login')
+            .send(userOne)
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+        console.log(response)
     })
 
     test('Check validator is working for username', async () => {

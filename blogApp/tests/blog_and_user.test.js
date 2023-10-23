@@ -8,35 +8,37 @@ const User = require('../models/user')
 const bcrypt = require('bcrypt')
 
 describe('Two users initially in DB', () => {
-    let authToken
+    let authorization
     beforeEach(async () => {
         await User.deleteMany({})
-        await User.insertMany(helper.initialUsers)
-    }, 10000)
+        const newUser = {
+            username: 'tester',
+            name: 'test',
+            password: 'password'
+        }
+        const response = await api
+            .post('/api/users')
+            .set('Content-Type', 'application/json')
+            .send (newUser)
+        const result = await api
+            .post('/api/login')
+            .send(newUser)
+
+        authorization = {
+            Authorization: `Bearer ${result.body.token}`
+        }
+        console.log(authorization)
+
+    }, 100000)
     test('check initial users are stored', async () => {
         const users = await api
             .get('/api/users')
             .expect(200)
             .expect('Content-Type', /application\/json/)
 
-        expect(users.body).toHaveLength(2)
+        expect(users.body).toHaveLength(1)
     })
-    test('log in user one', async () => {
-        const users = await helper.usersInDb()
-        console.log(users)
-        const userOne = {
-            username: 'TestOne',
-            password: '123'
-        }
-        const response = await api
-            .post('/api/login')
-            .send(userOne)
-            .expect(200)
-            .expect('Content-Type', /application\/json/)
 
-        authToken = response.body.token
-        console.log(authToken)
-    })
 })
 
 afterAll(async () => {

@@ -4,11 +4,31 @@ const helper = require('./test_helper')
 const app = require('../app')
 const api = supertest(app)
 const Blog = require('../models/blog')
+const User = require('../models/user')
 
+let authorization
 beforeEach(async () => {
+    await User.deleteMany({})
     await Blog.deleteMany({})
-    await Blog.insertMany(helper.initialBlogs)
-}, 10000)
+    const newUser = {
+        username: 'tester',
+        name: 'test',
+        password: 'password'
+    }
+    await api
+        .post('/api/users')
+        .set('Content-Type', 'application/json')
+        .send (newUser)
+    const result = await api
+        .post('/api/login')
+        .send(newUser)
+
+    authorization = {
+        Authorization: `Bearer ${result.body.token}`
+    }
+    console.log(authorization)
+
+}, 100000)
 
 test('check for json format', async () => {
     await api
