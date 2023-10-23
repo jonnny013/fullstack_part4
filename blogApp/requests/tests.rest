@@ -31,3 +31,15 @@ Content-Type: application/json
     "username": "Jon",
     "password": "123"
 }
+
+###
+
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvbiIsImlkIjoiNjUzMWQ4NWEyMGNhZGY1ZWUwZTJlZThiIiwiaWF0IjoxNjk4MDI1ODI4LCJleHAiOjE2OTgwMjk0Mjh9.MhLTKzAcAnE9XbkKMsQlBgcZEHzuEQ3VW7kxoKt8fFs
+
+{
+     "title": "test moving function to middleware",
+    "url": "empty",
+    "likes": 10
+}

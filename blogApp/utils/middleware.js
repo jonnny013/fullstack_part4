@@ -3,6 +3,14 @@ const morgan = require('morgan')
 
 morgan.token('content', (req) => JSON.stringify(req.body))
 
+const token = request => {
+    const authorization = request.get('authorization')
+    if (authorization && authorization.startsWith('Bearer ')) {
+        return authorization.replace('Bearer ', '')
+    }
+    return null
+}
+
 
 const requestLogger =  morgan(':method :url :status :res[content-length] - :response-time ms :content')
 
@@ -22,6 +30,8 @@ const errorHandler = (error, request, response, next) => {
         return response.status(401).json({
             error: 'token expired'
         })
+    } else if (error.name === 'JsonWebTokenError') {
+        return response.status(401).json({ error: error.message })
     }
 
     next(error)
@@ -30,5 +40,6 @@ const errorHandler = (error, request, response, next) => {
 module.exports = {
     requestLogger,
     unknownEndpoint,
-    errorHandler
+    errorHandler,
+    token
 }
