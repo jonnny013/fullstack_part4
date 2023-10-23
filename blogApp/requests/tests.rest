@@ -36,7 +36,7 @@ Content-Type: application/json
 
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvbiIsImlkIjoiNjUzMWQ4NWEyMGNhZGY1ZWUwZTJlZThiIiwiaWF0IjoxNjk4MDI1ODI4LCJleHAiOjE2OTgwMjk0Mjh9.MhLTKzAcAnE9XbkKMsQlBgcZEHzuEQ3VW7kxoKt8fFs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvbiIsImlkIjoiNjUzMWQ4NWEyMGNhZGY1ZWUwZTJlZThiIiwiaWF0IjoxNjk4MDMxNzMyLCJleHAiOjE2OTgwMzUzMzJ9.jDSdquM1YssCNWW_DlYAjViQ-8TtJ3LqMcExAoXJM08
 
 {
      "title": "test moving function to middleware",
