@@ -26,7 +26,16 @@ beforeEach(async () => {
     authorization = {
         Authorization: `Bearer ${result.body.token}`
     }
-    console.log(authorization)
+    await api
+        .post('/api/blogs')
+        .set('Content-Type', 'application/json')
+        .set(authorization)
+        .send(helper.initialBlogs[0])
+    await api
+        .post('/api/blogs')
+        .set('Content-Type', 'application/json')
+        .set(authorization)
+        .send(helper.initialBlogs[1])
 
 }, 100000)
 
@@ -45,7 +54,7 @@ test('check for unique id', async () => {
 
 test('post is successful', async () => {
     const newBlog = {
-        title: 'POST',
+        title: 'POST is successful',
         author: 'JEST',
         url: 'NULL',
         likes: 0
@@ -53,6 +62,7 @@ test('post is successful', async () => {
 
     await api
         .post('/api/blogs')
+        .set(authorization)
         .send(newBlog)
         .expect(201)
         .expect('Content-Type', /application\/json/)
@@ -63,13 +73,14 @@ test('post is successful', async () => {
 
 test('check like default', async () => {
     const newBlog = {
-        title: 'POST',
+        title: 'check like default',
         author: 'JEST',
         url: 'undefined',
     }
 
     await api
         .post('/api/blogs')
+        .set(authorization)
         .send(newBlog)
         .expect(201)
         .expect('Content-Type', /application\/json/)
@@ -88,6 +99,7 @@ test('check url property is missing will give error', async () => {
 
     await api
         .post('/api/blogs')
+        .set(authorization)
         .send(newBlog)
         .expect(400)
 
@@ -104,6 +116,7 @@ test('check title property is missing will give error', async () => {
 
     await api
         .post('/api/blogs')
+        .set(authorization)
         .send(newBlog)
         .expect(400)
 
@@ -117,6 +130,7 @@ test('check deletion is successful', async () => {
 
     await api
         .delete(`/api/blogs/${blogToDelete.id}`)
+        .set(authorization)
         .expect(204)
 
     const notesAfterDelete = await helper.blogsInDb()
@@ -145,3 +159,5 @@ afterAll(async () => {
 module.exports = () => {
     process.exit(0)
 }
+
+// npm test -- tests/blog_api.test.js
