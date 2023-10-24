@@ -9,11 +9,16 @@ const bcrypt = require('bcrypt')
 describe('Three users initially in DB', () => {
     beforeEach(async () => {
         await User.deleteMany({})
-        await User.insertMany(helper.initialUsers)
+        await api
+            .post('/api/users')
+            .send(helper.initialUsers[0])
+        await api
+            .post('/api/users')
+            .send(helper.initialUsers[1])
         const passwordHash = await bcrypt.hash('secret', 10)
         const user = new User({ username: 'Test', name: 'test', passwordHash })
         await user.save()
-    }, 10000)
+    }, 100000)
 
     test('check initial users are stored', async () => {
         const users = await api
@@ -63,7 +68,6 @@ describe('Creating new users in DB',  () => {
 
     test('password is too short', async () => {
         const usersAtStart = await helper.usersInDb()
-        console.log(usersAtStart)
         const newUser = {
             username: 'I like short passwords',
             name: 'Dummy',
@@ -75,7 +79,6 @@ describe('Creating new users in DB',  () => {
             .send(newUser)
             .expect(403)
         const usersAtEnd = await helper.usersInDb()
-        console.log(usersAtEnd)
         expect(usersAtEnd).toEqual(usersAtStart)
     })
 
