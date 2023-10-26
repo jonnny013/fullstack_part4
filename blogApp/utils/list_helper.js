@@ -1,14 +1,14 @@
-const dummy = (blogs) => {
+const dummy = () => {
     return 1
 }
 
 const totalLikes = (total) => {
     const likes = total.map(a => a.likes)
 
-        const reducer = (sum, item) => {
-            return sum + item
-        }
-        return likes.reduce(reducer, 0)   
+    const reducer = (sum, item) => {
+        return sum + item
+    }
+    return likes.reduce(reducer, 0)
 }
 
 const favoriteBlog = (blogs) => {
@@ -17,10 +17,10 @@ const favoriteBlog = (blogs) => {
         return undefined
     }
     const max = Math.max(...totallikes)
-    
+
     const index = totallikes.indexOf(max)
-    const {title, author, likes} = blogs[index]
-    const result = {title, author, likes}
+    const { title, author, likes } = blogs[index]
+    const result = { title, author, likes }
     return result
 }
 
@@ -32,11 +32,11 @@ const mostBlogs = (blogs) => {
     let blogNumber = {}
     for (let i = 0; i < authors.length; i++) {
         if (authors[i] in blogNumber) {
-                blogNumber[authors[i]]++
-            }
+            blogNumber[authors[i]]++
+        }
         else {
-                blogNumber[authors[i]] = 1
-            }   
+            blogNumber[authors[i]] = 1
+        }
     }
     let maxKey = null
     let max = 0
@@ -47,11 +47,11 @@ const mostBlogs = (blogs) => {
             maxKey = key
         }
     }
-    return {author: maxKey, blogs: max}
+    return { author: maxKey, blogs: max }
 }
 
 const mostLikes = (blogs) => {
-    const authors = blogs.map(a => ({author: a.author, likes: a.likes}))
+    const authors = blogs.map(a => ({ author: a.author, likes: a.likes }))
 
     if (authors.length === 0) {
         return undefined
@@ -61,11 +61,11 @@ const mostLikes = (blogs) => {
         const authorName = authors[i].author
         const likes = authors[i].likes
         if (authorName in blogNumber) {
-                blogNumber[authorName] += likes 
-            }
+            blogNumber[authorName] += likes
+        }
         else {
-                blogNumber[authors[i].author] = likes
-            }   
+            blogNumber[authors[i].author] = likes
+        }
     }
     let maxKey = null
     let max = 0
@@ -76,13 +76,13 @@ const mostLikes = (blogs) => {
             maxKey = key
         }
     }
-    return {author: maxKey, likes: max}
+    return { author: maxKey, likes: max }
 }
 
 
 module.exports = {
     dummy,
-    totalLikes, 
+    totalLikes,
     favoriteBlog,
     mostBlogs,
     mostLikes
