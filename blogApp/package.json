@@ -7,7 +7,11 @@
     "start": "cross-env NODE_ENV=production node index.js",
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
-    "start:test": "NODE_ENV=test node index.js"
+    "start:test": "NODE_ENV=test node index.js",
+    "build:ui": "rm -rf dist && cd ../../part5/bloglist-frontend && npm run build && cp -r dist ../../part4/blogApp",
+    "deploy": "fly deploy",
+    "deploy:full": "npm run build:ui && npm run deploy",    
+    "logs:prod": "fly logs"
   },
   "author": "Jon Love",
   "license": "ISC",
@@ -24,6 +28,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.4.10",
     "cross-env": "^7.0.3",
     "eslint": "^8.51.0",
     "eslint-config-airbnb-base": "^15.0.0",
